@@ -16,13 +16,46 @@
 
 <table><tr><th>
 
-<a href="proba">Digi Online TV2</a><br>
-<a href="proba">Digi Online EPG</a><br>
-<a href="proba">TV GO - TV2</a><br>
-<a href="proba">TV GO - RTL KLUB</a><br>
-<a href="proba">TV GO - EPG</a><br>
+<span id="dateOutput"></span>
+<span id="weekOutput"></span>
+<span id="dayOutput"></span><br><br>
+	
+<a href="proba">Digi Online TV2</a><br><br>
+<a href="proba">Digi Online EPG</a><br><br>
+<a href="proba">TV GO - TV2</a><br><br>
+<a href="proba">TV GO - RTL KLUB</a><br><br>
+<a href="proba">TV GO - EPG</a><br><br>
 
 </th></tr></table>
+
+<script>
+// Get the current date
+let date = new Date();
+
+// Format the date as ISO date (yyyy-mm-dd)
+let isoDate = date.toISOString().split('T')[0];
+
+// Get the ISO week number
+let isoWeek = getISOWeek(date);
+
+// Get the current day
+let days = ['vasárnap','hétfő','kedd','szerda','csütörtök','péntek','szombat'];
+let currentDay = days[date.getDay()];
+
+// Output the values
+document.getElementById('dateOutput').innerHTML = isoDate + " és a ";
+document.getElementById('weekOutput').innerHTML = isoWeek + ". hét, ";
+document.getElementById('dayOutput').innerHTML = currentDay;
+
+// Function to get the ISO week number
+function getISOWeek(d) {
+    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+    var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+    var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+    return weekNo;
+}
+</script>
 
 </body>
 
